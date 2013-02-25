@@ -1,8 +1,8 @@
 Package: RCircos
 Type: Package
 Title: Circos 2D Track Plot
-Version: 1.0
-Date: 2013-02-06
+Version: 1.0.1
+Date: 2013-02-25
 Author: Hongen Zhang
 Maintainer: Hongen Zhang <hzhang@mail.nih.gov>
 Description: RCircos package provides a simple and flexible way to
