@@ -13,7 +13,7 @@ National Cancer Institute, NIH}
 
 \section{Introduction}
 
-The RCircos package provides a set of graphic functions which implement basic Circos 2D track plot (Krzywinski, et al., 2009) for visualizing similarities and differences of genome structure and positional relationships between genomic intervals. The package is implemented with R graphics package that comes with R base installation and aimed to reduce the complexity of usage and increase the flexibility in integrating into other R pipelines of geneomic data processing. Curently, following graphic functions are provided: 
+The RCircos package provides a set of graphic functions which implement basic Circos 2D track plot \cite{Krzywinski} for visualizing similarities and differences of genome structure and positional relationships between genomic intervals. The package is implemented with R graphics package that comes with R base installation and aimed to reduce the complexity of usage and increase the flexibility in integrating into other R pipelines of geneomic data processing. Curently, following graphic functions are provided: 
 
 \begin{itemize}
 \item
@@ -373,5 +373,9 @@ demo("RCircos.Demo.Mouse.And.Rat");
 <<sessionInfo>>=
 sessionInfo()
 @ 
+
+\begin{thebibliography}{1}
+\bibitem{Krzywinski}  Krzywinski, Martin I and Schein, Jacqueline E and Birol, Inanc and Connors, Joseph and Gascoyne, Randy and Horsman, Doug and Jones, Steven J and Marra, Marco A.  Circos: An information aesthetic for comparative genomics. \textit{Genome Research}. 2009.
+\end{thebibliography}
 
 \end{document}
