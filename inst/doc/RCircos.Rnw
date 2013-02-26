@@ -13,43 +13,66 @@ National Cancer Institute, NIH}
 
 \section{Introduction}
 
-RCircos package provides a set of graphic functions which implement basic Circos 2D track plot (Krzywinski, et al., 2009) for visualizing similarities and differences of genome structure and positional relationships between genomic intervals . The package is implemented with R graphics package that comes with R base installation and aimed to reduce the complexity of usage and increase the flexibility in integrating into other R pipelines of geneomic data processing. Curently, following graphic functions are provided: 
+The RCircos package provides a set of graphic functions which implement basic Circos 2D track plot (Krzywinski, et al., 2009) for visualizing similarities and differences of genome structure and positional relationships between genomic intervals. The package is implemented with R graphics package that comes with R base installation and aimed to reduce the complexity of usage and increase the flexibility in integrating into other R pipelines of geneomic data processing. Curently, following graphic functions are provided: 
 
 \begin{itemize}
 \item
 Chromosome ideogram plots for human, mouse, and rat
 \item
-Data plots for heatmap, histogram, lines, scatters, and tiles
-\item
-Plot for connectors, links, and text (gene) labels
+Data plots include:
+\begin{itemize}
+  \item heatmap
+  \item histogram 
+  \item lines 
+  \item scatterplot 
+  \item tiles
 \end{itemize}
+\item
+Plot items for further decoration include:
+\begin{itemize}
+  \item connectors
+  \item links
+  \item text (gene) labels
+\end{itemize}
+\end{itemize}
+
+After successful installation of RCircos, one needs to load the library to get started using it.
+
+<<intro>>=
+# load the library
+library(RCircos)
+@ 
 
 \section{Input Data Format}
 
-RCircos requres the input data as data frame that could be object returned from read.table() or generated with other pipelines in current R session. The first three columns of the data frame, except of data for link plot,  must be genomic position information in the order of chromosome names, chromosome start, and chromosome end positions. For gene labels and heatmap plot, the gene/probe names must be provided in the fourth column. For other plots, this column could be optional. 
+RCircos takes the input data in the form of a data frame that could be an object returned from read.table() or generated with other pipelines in the current R session. The first three columns of the data frame, except for input to the link plot,  must be genomic position information in the order of chromosome names, chromosome start, and chromosome end positions. 
 
-\smallskip
+<<histogramdata>>=
+data(RCircos.Histogram.Data)
+head(RCircos.Histogram.Data)
+@ 
 
-Different from other plot data, The input data for link line plot has only paired genomic position information for each row in the order of chromosome name A, chromStart A, chromEnd A, chromosome name B, chromStart B, and chromEnd B.
 
-\smallskip
+For gene labels and heatmap plots, the gene/probe names must be provided in the fourth column. For other plots, this column could be optional. 
+
+<<heatmapdata>>=
+data(RCircos.Heatmap.Data)
+head(RCircos.Heatmap.Data)
+@ 
+
+
+Different from other plot data, the input data for link line plot has only paired genomic position information for each row in the order of chromosome name A, chromStart A, chromEnd A, chromosome name B, chromStart B, and chromEnd B.
+
+
+<<linkdata>>=
+data(RCircos.Link.Data)
+head(RCircos.Link.Data)
+@
+
 
 Note: RCircos will convert the input data to Circos plot data but it dose not provide functionality for general data processing. If the data frame does not have genomic position information, you have to add the information to the data frame before passing it to RCircos functions. Sample datasets are included in the package for demo purpose and they could be easily explored with data() mathod. 
 
-<<>>=
-#	Input file format for RCircos
-#	*******************************
-library(RCircos)
 
-data(RCircos.Histogram.Data)
-head(RCircos.Histogram.Data)
-
-data(RCircos.Link.Data)
-head(RCircos.Link.Data)
-
-data(RCircos.Heatmap.Data)
-head(RCircos.Heatmap.Data)
-@
 
 \section{Plot Track Layout}
 
@@ -154,7 +177,10 @@ As show above, the baseline positions are calculated based on cyto.band informat
 (http://genome.ucsc.edu). Other species should work if ideogram data is provided with a tab-delimted text file with same column and column headers. In that case, use read.table() to get the cyto.info object.
 
 
-\section{Initialize Graphic Device}
+\section{Making a Plot with RCircos}
+Plotting with RCircos is a stepwise process.  First, an initialization step is needed.  Then, tracks and other aspects of the plot are added sequentially.  The result is available after the plot has been entirely constructed.  The next subsections walk through the process in detail.
+
+\subsection{Initialize Graphic Device}
 
 RCircos provides a set of graphic plot functions but does not handle graphic devices. To make RCircos plots, a graphic device has to be opened first. Currently, RCircos works with files supported by R graphics package such as tiff, png, pdf images as well as GUI windows.  For example, to make a pdf file with Circos plot image:
 
@@ -172,18 +198,17 @@ title("RCircos 2D Track Plot with Human Genome");
 @
 
 
-Note: Please make sure ther is enough space for data track plotting by checking plot.radius, track.height and track.padding. By defaul, radius.len is 1 and track.height plus track.padding is 0.12. So that only few tracks can be plotted inside of chromosome ideogram. For more data track plot, increase the radius.len and reset chromosome ideogram position as mentioned above.
-
-\smallskip
-
-Note: After evrything is done, the graphic device need to be closed with dev.off().
+Note: Please make sure there is enough space for data track plotting by checking plot.radius, track.height and track.padding. By defaul, radius.len is 1 and track.height plus track.padding is 0.12. These default settings allow only a few tracks to be plotted inside of chromosome ideogram. For more data track plots, increase the radius.len and start over.
 
 
-\section{First plot: Chromosomoe Ideogram}
+Note: After everything is done, the graphic device need to be closed with dev.off().
 
-After initialized plot parameters and acquired cytoband data and base plot positions, it is ready to make Circos plot. As you may want, the first plot is drawing chromosome ideogram, label chromosomes with names and highlights. Simply call and pass necessary arguments to RCircos.Chromosome.Ideogram() will draw the ideogram on image. 
 
-<<results=hide>>=
+\subsection{Chromosome Ideogram}
+
+After initializing plot parameters and acquiring cytoband data and base plot positions, a common first step is to draw chromosome ideograms and label chromosomes with names and highlights. Simply call and pass necessary arguments to RCircos.Chromosome.Ideogram() to add the ideogram to the current plot. 
+
+<<ideogram,results=hide>>=
 #	Draw chromosome ideogram
 #	*********************************
 RCircos.Chromosome.Ideogram(cyto.band, circle.positions, 
@@ -191,17 +216,15 @@ RCircos.Chromosome.Ideogram(cyto.band, circle.positions,
 @
 
 
-\section{Gene Labels and connectors on RCircos Plot}
+\subsection{Gene Labels and connectors on RCircos Plot}
 
-Label gene names with RCircos reqires one more step than other plots above, i.e., check and reset, if necessary, gene label positions in order to avoid overlap of neighbour gene names. Due to the resolution issues, only limited number of gene names could be labeld. For best visualization, cex should be no less than 0.4 when draw gene labels. When cex is set to 0.4, width of character will be 5000 chromosome units. If the gene name list supplied is too long, it will be truncted to fit the chromosome length. Also the long gene name will span more than one track so one or more tracks may need be skipped when calculate position for next track.
+Label gene names with RCircos reqires one more step than other plots above, i.e., check and reset, if necessary, gene label positions in order to avoid overlap of neighbour gene names. Due to the resolution issues, only limited number of gene names can be labeled. For best visualization, cex should be no less than 0.4 when draw gene labels. When cex is set to 0.4, width of character will be 5000 chromosome units. If the gene name list supplied is too long, it will be truncted to fit the chromosome length. Also the long gene name will span more than one track so one or more tracks may need be skipped when calculate position for next track.
 
-\smallskip
+Connectors are used to mark a genomic positions with their names or variant status. Each connector consists two vertical lines and one connection line between two vertical lines. Each end of the connector points to the genomic position of one of two neighbour tracks (e.g, the chromosome ideogram and gene names). The connector data derived from input data should contains two plot positions to present the two ends of connector. When one end points to chromosome ideogram and another end points to the data track, connector data could be converted from input data by call RCircos.Get.Label.Locations(). If both ends are data tracks, process the input data for the track close to chromosome ideogram with function of RCircos.Get.Plot.Data() and convert the input data for the other track with function of RCircos.Get.Label.Locations(), then combine the last column of the first output and the last column of second output as connector data.
 
-Connectors are used to mark a genomic positions with its names or variant status. Each connector consists two vertical lines and one connection line between two vertical lines. Each end of the connector points to the genomic position of one of two neighbour tracks (e.g, the chromosome ideogram and gene names). The connector data derived from input data should contains two plot positions to present the two ends of connector. When one end points to chromosome ideogram and another end points to the data track, connector data could be converted from input data by call RCircos.Get.Label.Locations(). If both ends are data tracks, process the input data for the track close to chromosome ideogram with function of RCircos.Get.Plot.Data() and convert the input data for the other track with function of RCircos.Get.Label.Locations(), then combine the last column of the first output and the last column of second output as connector data.
+The following code uses gene data as plot data for RCircos.Connector() function to draw connectors between chromosome ideogram and gene names.
 
-Following code uses gene data as plot data for RCircos.Connector() function to draw connectors between chromosome ideogram and gene names.
-
-<<results=hide>>=
+<<connectors,results=hide>>=
 #	Plot connectors in first track and gene
 #	names in the second track. 
 #	***************************************
@@ -226,7 +249,7 @@ RCircos.Gene.Label(circle.positions, gene.data,
 @
 
 
-\section{Heatmap, Histogram, Line, Scatter, and Tile Plot}
+\subsection{Heatmap, Histogram, Line, Scatter, and Tile Plot}
 
 Heatmap, histogram, line, scatter, and tile plot with RCircos require that the first three columns of input data are genomic position information in the order of chromosome name, start, and end position. Before plot data track, the input data needs to be transformed to plot data. RCircos.Get.Plot.Data(input.Data, cyto.band) will perform this transformation. After the plot data is done, call relative function to plot the data on one or more selected track.
 
@@ -244,7 +267,7 @@ RCircos.Heatmap(cyto.band, circle.positions, expr.data,
 			data.col, track.num, direction, circpar);
 @
 
-<<results=hide>>=
+<<scatterplot,results=hide>>=
 #	Scatterplot with DNA copy number variation data
 #	**********************************************
 data(RCircos.Scatter.Data);
@@ -259,7 +282,7 @@ RCircos.ScatterPlot(cyto.band, circle.positions,
 		direction, by.fold=1, circpar);
 @
 
-<<results=hide>>=
+<<lines,results=hide>>=
 #	Line plot with DNA copy number variation data
 #	**********************************************
 data(RCircos.Line.Data);
@@ -275,7 +298,7 @@ RCircos.Line.Plot(cyto.band, circle.positions,
 			track.num, direction, circpar);
 @
 
-<<results=hide>>=
+<<histogram,results=hide>>=
 #	Draw Histogram
 #	**********************************************
 data(RCircos.Histogram.Data);
@@ -290,7 +313,7 @@ RCircos.Histogram(cyto.band, circle.positions,
 			track.num, direction, circpar);
 @
 
-<<results=hide>>=
+<<tiles,results=hide>>=
 #	Draw Tile plot. 
 #	**********************************************
 data(RCircos.Tile.Data);
@@ -307,7 +330,7 @@ RCircos.Tile.Plot(cyto.band, circle.positions,
 
 
 
-\section{Link Lines: A Special Plot}
+\subsection{Link Lines: A Special Plot}
 
 A link line presents relationship of two genomic positions and it is always the last track inside chromosome ideogram. Different from other data plots, input data for link line plot is a data frame with paired genomic positions in the order of chromosome, start, and end position for each one genomic position. Colors for links between chromosomes or same chromosomes could be modified by defining by.chromosome=TRUE (or FALSE).
 
@@ -325,10 +348,10 @@ dev.off();
 
 Run code above will generate an image like below.
 
-\includegraphics[height=4.5in,width=4.5in]{RCircosDemoHuman}
+\includegraphics[width=1\textwidth]{RCircos.Demo.Human.pdf}
 
 
-\section{More Inforamtion}
+\section{More Information}
 
 Several demo samples are included in the package. Simply run following demos to see how the RCircos works for simple and complex Circos plot.
 
@@ -345,5 +368,10 @@ demo("RCircos.Demo.Human");
 #	************************************
 demo("RCircos.Demo.Mouse.And.Rat");
 @
+
+\section{sessionInfo}
+<<sessionInfo>>=
+sessionInfo()
+@ 
 
 \end{document}
