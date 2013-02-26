@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx}
+\usepackage{hyperref}
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}
@@ -10,6 +11,8 @@ Genetics Branch, Center for Cancer Research,\\
 National Cancer Institute, NIH}
 \date{February 12, 2013}
 \maketitle
+
+\tableofcontents
 
 \section{Introduction}
 
