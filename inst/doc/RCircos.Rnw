@@ -81,15 +81,15 @@ Note: RCircos will convert the input data to Circos plot data but it dose not pr
 
 RCircos follows the same algorithm of Circos plot and arranges data plots in tracks. A track could be placed either inside or outside of chromosome ideogram and the detailed position fo a track could be easily manipulated by changing  of the track width and track numbers.
 
-\smallskip
 
 The figure below shows a human chromosome ideogram plus three empty tracks arranged in both inside and outside of chromosome ideogram.
 
-\medskip 
-\includegraphics[height=4.5in,width=4.5in]{RCircosLayoutDemo}
+\includegraphics[width=1\textwidth]{RCircosDemoHuman.png}
 
 
-\section{The First Step: Initialize Plot Parameters}
+\section{Getting Started: Preliminary Steps for RCircos}
+
+\subsection{Initialize Plot Parameters}
 
 The first step of making RCircos plot is to initialize plot parameters. Following are plot parameters and their default values:
 
@@ -160,7 +160,7 @@ circpar <- RCircos.Reset.Ideogram.Position(circpar, radius.len);
 @
 
 
-\section{The Second Step: Get Base Plot Positions Based on A Chromosome Ideogram}
+\subsection{Get Base Plot Positions Based on A Chromosome Ideogram}
 
 RCircos generates Circos images with points, lines, polygon, and text functions provided by R graphich package. To plot chromosome ideogram and data tracks in circular layout, RCircos needs a set of point positions that forms a circular line to serve as the baseline for x- and y-coordinates calculation of any plot items. The baseline positions has a defaul radius of 1 and number of total points are genome length in base pairs devided by chromosome units length (base.per.unit, base pairs a point will cover).  To get the baseline positions, run following code:
 
@@ -188,10 +188,8 @@ Plotting with RCircos is a stepwise process.  First, an initialization step is n
 RCircos provides a set of graphic plot functions but does not handle graphic devices. To make RCircos plots, a graphic device has to be opened first. Currently, RCircos works with files supported by R graphics package such as tiff, png, pdf images as well as GUI windows.  For example, to make a pdf file with Circos plot image:
 
 <<results=hide>>=
-#	Initialize graphic device (here a pdf file)
-#	*******************************************
-pdf.file <- "RCircos.Demo.Human.Genome.pdf";
-pdf(file=pdf.file, height=8, width=8);
+#pdf.file <- "RCircosDemoHumanGenome.pdf";
+#pdf(file=pdf.file, height=8, width=8);
 
 par(mai=c(0.25, 0.25, 0.25, 0.25));
 plot.new();
@@ -351,7 +349,6 @@ dev.off();
 
 Run code above will generate an image like below.
 
-\includegraphics[width=1\textwidth]{RCircos.Demo.Human.pdf}
 
 
 \section{More Information}
