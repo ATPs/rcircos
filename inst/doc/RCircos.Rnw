@@ -84,7 +84,7 @@ RCircos follows the same algorithm of Circos plot and arranges data plots in tra
 
 The figure below shows a human chromosome ideogram plus three empty tracks arranged in both inside and outside of chromosome ideogram.
 
-\includegraphics[width=1\textwidth]{RCircosDemoHuman.png}
+\includegraphics[width=1\textwidth]{RCircosLayoutDemo.png}
 
 
 \section{Getting Started: Preliminary Steps for RCircos}
@@ -349,6 +349,7 @@ dev.off();
 
 Run code above will generate an image like below.
 
+\includegraphics[width=1\textwidth]{RCircosDemoHuman.png}
 
 
 \section{More Information}
