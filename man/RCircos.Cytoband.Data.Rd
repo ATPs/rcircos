@@ -7,11 +7,11 @@ Chromosome Ideogram Data
 This function sorts chromosome ideogram data by chromosome and cytoband, calculate band length (number of base pairs), number of points needed to cover the band, relavent locations of each band on the circular layout, and assign colors to chromosome highlights and each band.
 }
 \usage{
-RCircos.Cytoband.Data(cytoband, chr.exclude = NULL, RCircos.Par)
+RCircos.Cytoband.Data(cyto.info, chr.exclude = NULL, RCircos.Par)
 }
 \arguments{
-  \item{cytoband}{
-A data frame returned from RCircos.Cytoband.Data(cyto.info, chr.exclude, RCircos.Par) and containing plot data for chromosome ideogram .
+  \item{cyto.info}{
+A data frame containing plot data for chromosome ideogram, e.g., an data frame generated with cytoBandIdeo table from UCSC genome browser.
 }
   \item{chr.exclude}{
 Character vector containing of chromosome name(s) that should be excluded from data frame to be returned, or NULL if all chromosomes are included.
