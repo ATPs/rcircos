@@ -7,7 +7,7 @@ Validate Genomic Data for RCircos Input
 This function validate genomic position for a dataset. Column(s) for chromosome names will be converted to character vectors. Start and end positions will be checked for correct ranges.
 }
 \usage{
-Circos.Validate.Genomic.Data(genomic.data, cyto.band, plot.type)
+RCircos.Validate.Genomic.Data(genomic.data, cyto.band, plot.type)
 }
 \arguments{
   \item{genomic.data}{
