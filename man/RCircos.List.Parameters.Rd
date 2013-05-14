@@ -1,20 +1,49 @@
 \name{RCircos.List.Parameters}
 \alias{RCircos.List.Parameters}
 \title{
-Print out Graphic Parameters to Standard Output
+Print RCircos Parameters to Standard Output
 }
 \description{
-Display all graphic parameters specific for Circos plot on standard output.
+Display all graphic parameters used by current RCircos session on standard output. RCircos core components must be initialized first.
 }
 \usage{
-RCircos.List.Parameters(RCircos.Par)
-}
-\arguments{
-  \item{RCircos.Par}{
-A list returned from RCircos.Initialize.Parameters() that contains graphics parameters specific for Circos plot.
-}
+RCircos.List.Parameters()
 }
 \author{
 Hongen Zhang
 }
-\keyword{methods}
+\examples{
+# Load RCircos libaray
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+library(RCircos);
+
+
+# Load human chromosome ideogram
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+data(UCSC.HG19.Human.CytoBandIdeogram);
+
+
+# Set RCircso core components
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
+chr.exclude <- c("chrX", "chrY");
+num.inside <- 5;
+num.outside <- 0;
+RCircos.Set.Core.Components(cyto.info, chr.exclude,  
+                     num.inside, num.outside);
+
+
+# List RCircos plot parameters
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+RCircos.List.Parameters();
+}
+\keyword{ methods }
+

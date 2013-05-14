@@ -4,35 +4,73 @@
 Circos-like Line Plot
 }
 \description{
-Draw one track of line plot. Graphics device must bae initialized before drawing.
+Draw one track of line plot. RCircos core components and graphics device must bae initialized before drawing.
 }
 \usage{
-RCircos.Line.Plot(cyto.band, base.positions, line.data, data.col, track.num, side, RCircos.Par)
+RCircos.Line.Plot(line.data, data.col, track.num, side)
 }
 \arguments{
-  \item{cyto.band}{
-A data frame containing plot data for chromosoem ideogram returned from RCircos.Cytoband.Data(cyto.info, chr.exclude, RCircos.Par).
-}
-  \item{base.positions}{
-A data frame returned from RCircos.Base.Plot.Positions(cyto.band, RCircos.Par) containing x- and y-coordinates for a circular line as well as degrees of text rotation at each position.
-}
   \item{line.data}{
-A data frame, converted from genomic data by RCircos.Get.Plot.Data(genomic.data, cyto.band), containing genomic positions, genomic data values, and Circos plot positions.
+A data frame with the first three columns as chromosome names, start position and end position of each data point followed by data values for one or more samples.
 }
   \item{data.col}{
-Integer, the number of column for the data to be plotted.
+Integer, representing the ordinal number of the column in input dataset that contains the data to be plotted.
 }
   \item{track.num}{
-Integer, the number of the plot track inside or outside of chromosome ideogram.
+Integer, representing the ordinal number of the plot track where the lines will be plotted.
 }
   \item{side}{
-Character vector, either "in" or "out" representing the position related to chromosome ideogram.
-}
-  \item{RCircos.Par}{
-A list returned from RCircos.Initialize.Parameters() containing graphics paramters specific for Circos plot.
+Character vector, either "in" or "out", representing the position related to chromosome ideogram.
 }
 }
 \author{
 Hongen Zhang
 }
-\keyword{methods}
+\examples{
+# Load RCircos libaray
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+library(RCircos);
+
+
+# Load human chromosome ideogram
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+data(UCSC.HG19.Human.CytoBandIdeogram);
+
+
+# Set RCircso core components
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
+chr.exclude <- c("chrX", "chrY");
+num.inside <- 5;
+num.outside <- 0;
+RCircos.Set.Core.Components(cyto.info, chr.exclude,  
+                     num.inside, num.outside);
+
+
+# Initialize graphic device and plot chromosome  
+# ideogram
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+RCircos.Set.Plot.Area();
+RCircos.Chromosome.Ideogram.Plot();
+
+
+# Load line plot data and plot one track of lines
+# __________________________________________________
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+data(RCircos.Line.Data);
+data.col <- 5; 
+track.num <- 4;
+side <- "in";
+RCircos.Line.Plot(RCircos.Line.Data, data.col,  
+                           track.num, side);
+}
+\keyword{ methods }
