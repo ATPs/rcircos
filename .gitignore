@@ -1,2 +1,6 @@
 *aux
 *log
+*.tex
+*.out
+*.toc
+Rplots.pdf
