@@ -1,11 +1,12 @@
+\documentclass{article}
+
 %\VignetteIndexEntry{RCircos}
 %\VignetteDepends{RCircos}
-%\VignetteKeywords{bioinformatics}
-%\VignetteKeywords{genomics}
-%\VignetteKeywords{RCircos}
+%\VignetteKeyword{bioinformatics}
+%\VignetteKeyword{genomics}
+%\VignetteKeyword{RCircos}
 %\VignettePackage{RCircos}
 
-\documentclass{article}
 \usepackage{graphicx}
 \usepackage{hyperref}
 
