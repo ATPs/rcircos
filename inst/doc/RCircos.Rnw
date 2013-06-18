@@ -119,7 +119,7 @@ head(UCSC.Baylor.3.4.Rat.cytoBandIdeogram);
 
 After the chromosome ideogram data is loaded, RCircos core components can be initialized with function of RCircos.Set.Core.Components(). This function needs four arguments:
 
-\begin{itemize}
+\begin{description}
 \item[cytoinfo]
 the chromosome ideogram data loaded
 \item[chr.exclude]
@@ -128,7 +128,7 @@ which chromosomes should be excluded from plot, e.g., chr.exclude <- c("chrX", "
 how many data tracks will be plotted inside chromosome ideogram
 \item[tracks.outside]
 how many data tracks will be plotted outside chromosome ideogram
-\end{itemize}
+\end{description}
  
 <<>>=
 #	Setup RCircos core components

@@ -11,7 +11,7 @@
 # 		__________________________________________________
 # 		
 # 
-# 		Last revised on May 14, 2013
+# 		Last revised on May 16, 2013
 # 		Version:	RCircos.1.1.0
 # 
 # 		by Hongen Zhang, Ph.D. (hzhang@mail.nih.gov)
@@ -28,6 +28,17 @@
 
 
 
+
+
+# 	______________________________________________________________________________________________________
+#	<R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R>
+#
+#	Working environment for RCircos to hold RCircos core components.
+#
+# 		Last revised on May 16, 2013
+#
+
+RCircos.Env <- new.env();
 
 
 
@@ -121,7 +132,7 @@ RCircos.Workflow<-function()
 #			RCircos.Set.Core.Components(cyto.info, chr.exclude=NULL, 10, 0);
 #
 #
-#	Last revised on May 8, 2013
+#	Last revised on May 16, 2013
 #
 #
 
@@ -137,33 +148,12 @@ RCircos.Set.Core.Components<-function(cyto.info, chr.exclude=NULL, tracks.inside
 	cyto.band.data <- RCircos.Validate.Cyto.Info(cyto.info, chr.exclude);
 
 
-	#	Step 2. Setup an environment to store RCircos
-	#	core components to limit the global usage
-	# 	_____________________________________________
-	# 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-	assign("RCircos.Env", new.env(), envir=.GlobalEnv);
-
-
-	#	Step 3. Initialize RCircos plot parameters
+	#	Step 2. Initialize RCircos core components
 	# 	__________________________________________
 	# 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 	RCircos.Initialize.Parameters(tracks.inside,tracks.outside);
-	
-
-	#	Step 4. Initialize chromosome cytoband object
-	#	_____________________________________________
-	# 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
 	RCircos.Set.Cytoband.data(cyto.band.data);
-	
-
-	#	Step 4. Calculate base plot positions (x and y
-	#	coordinates for a circular line
-	# 	______________________________________________
-	# 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
 	RCircos.Set.Base.Plot.Positions();
 
 
@@ -191,7 +181,7 @@ RCircos.Set.Core.Components<-function(cyto.info, chr.exclude=NULL, tracks.inside
 #			plot.pos   <- RCircos.Get.Plot.Positions();
 #
 #
-#	Last revised on May 14, 2013
+#	Last revised on May 8, 2013
 #
 #
 
@@ -340,7 +330,7 @@ RCircos.Set.Plot.Area<-function()
 #			RCircos.Reset.Plot.Parameters(plot.params);
 #
 #
-#	Last revised on May 14, 2013
+#	Last revised on May 8, 2013
 #
 #
 
@@ -433,13 +423,13 @@ RCircos.Reset.Plot.Parameters<-function(new.params)
 	RCircosEnvironment[["RCircos.Cytoband"]] <- NULL;
 	RCircosEnvironment[["RCircos.Base.Position"]] <- NULL;
 
+
 	#	Put the plot parameter in RCircos environment and reset
 	#	cytoband data and base positions
 	#	_________________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 	RCircosEnvironment[["RCircos.PlotPar"]] <- new.params;
-
 	RCircos.Set.Cytoband.data(cyto.band.data);
 	RCircos.Set.Base.Plot.Positions();
 
@@ -538,6 +528,7 @@ RCircos.Chromosome.Ideogram.Plot<-function()
 		
 	}
 }
+
 
 
 # 	______________________________________________________________________________________________________
@@ -1397,7 +1388,9 @@ RCircos.Link.Plot<-function(link.data, track.num, by.chromosome=FALSE)
 
 		P0 <- as.numeric(base.positions[point.one,]);
 		P2 <- as.numeric(base.positions[point.two,]);
-		RCircos.Link.Line(P0, P2, line.colors[a.link] );  
+		links <- RCircos.Link.Line(P0, P2); 
+		lines(links$pos.x, links$pos.y, type="l", 
+			col=line.colors[a.link] ); 
 	}
 }
 
@@ -1565,7 +1558,12 @@ RCircos.Validate.Genomic.Data<-function(genomic.data, plot.type=c("plot", "link"
 	#	_______________________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-	if(plot.type=="plot") { chrom.col <- 1; } else { chrom.col <- c(1,4); }
+	plot.type <- tolower(plot.type);
+	if(plot.type=="plot") { 
+		chrom.col <- 1; 
+	} else if(plot.type=="link") { 
+		chrom.col <- c(1,4); 
+	} else { stop("Plot type must be \"plot\" or \"line\""); }
 	
 	for (a.col in 1:length(chrom.col))
 	{
@@ -1620,7 +1618,7 @@ RCircos.Validate.Genomic.Data<-function(genomic.data, plot.type=c("plot", "link"
 
 		for(a.chr in 1:length(data.chroms))
 		{
-			the.chr      <- data.chroms[a.chr];
+			the.chr      <- data.chroms[a.chr]; 
 			in.data      <- genomic.data[genomic.data[,the.col]==the.chr,];
 			cyto.data <- RCircos.Cyto[grep(the.chr, RCircos.Cyto$Chromosome),]
 
@@ -1679,7 +1677,7 @@ RCircos.Validate.Genomic.Data<-function(genomic.data, plot.type=c("plot", "link"
 #			RCircos.Multipl.Species.Core.Components(cyto.info, species.list, NULL, 10, 0);
 #
 #
-#	Last revised on May 7, 2013
+#	Last revised on May 16, 2013
 #
 #
 
@@ -1714,34 +1712,12 @@ RCircos.Multiple.Species.Core.Components<-function(cyto.info.list, species.list,
     	}
 
 
-	#	In case run this first setup an environment to store
-	#	RCircos core components to limit the global usage
-	# 	____________________________________________________
-	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-	assign("RCircos.Env", new.env(), envir=.GlobalEnv);
-
-
-
-	#	Initialize RCircos plot parameters
+	#	Initialize RCircos core components
 	# 	____________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 	RCircos.Initialize.Parameters(tracks.inside,tracks.outside);
-
-
-	#	Initialize chromosome cytoband object
-	# 	____________________________________________________
-	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
 	RCircos.Set.Cytoband.data(new.cyto.info);
-
-
-	#	Calculate base plot positions (x and y coordinates 
-	#	for a circular line
-	# 	____________________________________________________
-	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
 	RCircos.Set.Base.Plot.Positions();
 }
 
@@ -1809,6 +1785,117 @@ RCircos.Multiple.Species.Dataset <- function(data.list, species)
 	return (new.data);
 }
 
+
+
+# 	______________________________________________________________________________________________________
+#	<R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R>
+# 
+#	Ribbon link plot. Ribbons are wide link line between two chromosome segments.
+#
+#	Arguments:
+#
+#	link.data:	Data frame with paired genomic positions in each row
+#	track.num:	Number of the track from chromosome ideogram.
+#
+#	Return value:	None
+#
+#	Example:	RCircos.Ribbon.Plot(ribbon.data, 10, FALSE, FALSE)
+#
+#
+#	Last revised on June 13, 2013
+#
+#
+
+RCircos.Ribbon.Plot<-function(ribbon.data, track.num, by.chromosome=FALSE, twist=FALSE)
+{
+	RCircos.Pos <- RCircos.Get.Plot.Positions();
+	RCircos.Par <- RCircos.Get.Plot.Parameters();
+
+
+	#	Check chromosome names, Start, and End positions
+	#	_______________________________________________________________
+	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+	ribbon.data <- RCircos.Validate.Genomic.Data(ribbon.data, plot.type="link");
+
+
+	#	Plot position for link track.
+	#	__________________________________________________________
+	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+	one.track <- RCircos.Par$track.height + RCircos.Par$track.padding;
+	track.out <- RCircos.Par$track.in.start - (track.num-1)*one.track;
+	base.positions <- RCircos.Pos*track.out;
+
+
+	#	Coordinates of the four conners of each ribbon (polygon) 
+	#	__________________________________________________________
+	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+	data.points <- matrix(rep(0, nrow(ribbon.data)*4), ncol=4);
+	line.colors <- rep("blue", nrow(ribbon.data));
+	for(a.link in 1:nrow(ribbon.data))
+	{
+		data.points[a.link, 1] <- RCircos.Data.Point(
+			ribbon.data[a.link, 1], ribbon.data[a.link, 2]);
+		data.points[a.link, 2] <- RCircos.Data.Point(
+			ribbon.data[a.link, 1], ribbon.data[a.link, 3]);
+		data.points[a.link, 3]<- RCircos.Data.Point(
+			ribbon.data[a.link, 4], ribbon.data[a.link, 5]);
+		data.points[a.link, 4]<- RCircos.Data.Point(
+			ribbon.data[a.link, 4], ribbon.data[a.link, 6]);
+
+		if(data.points[a.link, 1]==0 || data.points[a.link, 2]==0)
+		{  print("Error in chromosome locations ...");  break; }
+
+		if(by.chromosome==TRUE) {
+			if(ribbon.data[a.link, 1]==ribbon.data[a.link, 4]) {
+				line.colors[a.link] <- "red";
+			} 
+		} else {  line.colors[a.link] <- a.link; }
+	}
+
+
+
+	#	Draw each ribbon (polygon)
+	#	__________________________________________________________
+	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+	for(a.ribon in 1:nrow(ribbon.data))
+	{
+		start.one <- data.points[a.ribon, 1];
+		end.one <- data.points[a.ribon, 2];
+
+		if(twist==FALSE) {
+			start.two <- data.points[a.ribon, 3];
+			end.two <- data.points[a.ribon, 4];
+		} else {
+			start.two <- data.points[a.ribon, 4];
+			end.two <- data.points[a.ribon, 3];
+		}
+
+		P0 <- as.numeric(base.positions[end.one,]);
+		P2 <- as.numeric(base.positions[start.two,]);
+		line.one <- RCircos.Link.Line(P0, P2);
+
+		P0 <- as.numeric(base.positions[end.two,]);
+		P2 <- as.numeric(base.positions[start.one,]);
+		line.two <- RCircos.Link.Line(P0, P2);
+
+		polygon.x<- c(base.positions[start.one:end.one,1],
+				line.one$pos.x,
+				base.positions[start.two:end.two,1],
+				line.two$pos.x );
+		polygon.y<- c(base.positions[start.one:end.one,2],
+				line.one$pos.y,
+				base.positions[start.two:end.two,2],
+				line.two$pos.y );
+		polygon(polygon.x, polygon.y, border=NA, 
+				col=line.colors[a.ribon]);
+	}
+}
+
+
 #
 # 	______________________________________________________________________________________________________
 #	<R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R><R>
@@ -1835,7 +1922,7 @@ RCircos.Multiple.Species.Dataset <- function(data.list, species)
 #	Example:	Internal use only
 #
 #
-#	Last revised on May 14, 2013
+#	Last revised on May 8, 2013
 #	
 
 RCircos.Initialize.Parameters<-function(tracks.inside, tracks.outside)
@@ -1936,7 +2023,7 @@ RCircos.Initialize.Parameters<-function(tracks.inside, tracks.outside)
 #
 #	Example:	internal use only
 #
-#	Last revised on May 14, 2013
+#	Last revised on May 8, 2013
 #
 #
 #
@@ -2067,7 +2154,7 @@ RCircos.Set.Cytoband.data<-function(cyto.band.info)
 #	Return value: 	None
 #
 #
-#	Last revised on May 14, 2013
+#	Last revised on May 8, 2013
 #
 #
 
@@ -2402,8 +2489,8 @@ RCircos.Get.Gene.Label.Locations<-function(genomic.data)
 	RCircos.Par <- RCircos.Get.Plot.Parameters();
 	RCircos.Pos <- RCircos.Get.Plot.Positions();
 
-	bases.default <- 3000;
-	units.default <- 5000;
+	units.default <- 1031904;
+	width.default <- 5000;
 	size.default <- 0.4;
 
 
@@ -2418,9 +2505,9 @@ RCircos.Get.Gene.Label.Locations<-function(genomic.data)
 	#	____________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-	width.factor <- (bases.default/RCircos.Par$base.per.unit);
-	label.units <- units.default*width.factor;
-	label.width <- (RCircos.Par$text.size/size.default)*label.units; 
+	unit.factor <- units.default/sum(RCircos.Cyto$Unit);
+	size.factor <- size.default/RCircos.Par$text.size;
+	label.width <- (width.default/unit.factor)*size.factor;
 
 
 	#	Get maximum number of lables for each chromosome. 
@@ -2544,11 +2631,11 @@ RCircos.Get.Gene.Label.Locations<-function(genomic.data)
 #	Example:	internal use only
 #
 #
-#	Last revised on May 8, 2013
+#	Last revised on June 13, 2013
 #
 #
 
-RCircos.Link.Line<-function(line.start, line.end, line.color)
+RCircos.Link.Line<-function(line.start, line.end)
 {	
 	#	Set up the points for Bezure curve
 	#	___________________________________________
@@ -2575,11 +2662,11 @@ RCircos.Link.Line<-function(line.start, line.end, line.color)
 	link.y <- (1-t)^2*P0[2] + t^2*P2[2];
 
 
-	#	Draw Bezuer curve
+	#	Return the coordinates
 	#	___________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 	
-	lines(link.x, link.y, type="l", col=line.color);
+	return (list(pos.x=link.x, pos.y=link.y));
 }
 
 
