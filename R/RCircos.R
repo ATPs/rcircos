@@ -75,9 +75,9 @@ RCircos.Workflow<-function()
 	cat("    RCircos.Set.Core.Components(cyto.info, chr.exclude=NULL, 10, 0);\n\n");
 
 	cat("4.  Load input data:\n\n");
-	cat("    expr.data <- read.table(\"/path/Heatmap.data.txt, sep=\"\\t\", quote=\"\", head=T);\n");
-	cat("    hist.data <- read.table(\"/path/histgram.data.txt, sep=\"\\t\", quote=\"\", head=T);\n");
-	cat("    link.data <- read.table(\"/path/link.data.txt, sep=\"\\t\", quote=\"\", head=T);\n\n");
+	cat("    expr.data <- read.table(\"/path/Heatmap.data.txt\", sep=\"\\t\", quote=\"\", head=T);\n");
+	cat("    hist.data <- read.table(\"/path/histgram.data.txt\", sep=\"\\t\", quote=\"\", head=T);\n");
+	cat("    link.data <- read.table(\"/path/link.data.txt\", sep=\"\\t\", quote=\"\", head=T);\n\n");
 
 	cat("5.  Modify plot parameters if necessary:\n\n");
 	cat("    rcircos.params <- RCircos.Get.Plot.Parameters()\n");
@@ -91,15 +91,13 @@ RCircos.Workflow<-function()
 	cat("    plot.new();\n");
 	cat("    plot.window(c(-2.5,2.5), c(-2.5, 2.5));\n\n");
 
-	cat("7.  Read in your plot data ...\n\n");
-
-	cat("8.  Call plot function to plot each data track:\n\n");
+	cat("7.  Call plot function to plot each data track:\n\n");
 	cat("    RCircos.Chromosome.Ideogram.Plot();\n");
 	cat("    RCircos.Heatmap.Plot(heatmap.data, data.col=5, track.num=1, side=\"in\");\n");
 	cat("    RCircos.Histogram.Plot(hist.data, data.col=4, track.num=4, side=\"in\");\n");
 	cat("    RCircos.Link.Plot(link.data, track.num=5, by.chromosome=FALSE);\n\n");
 
-	cat("9. Close the graphic device if you was plotting to file:\n\n");
+	cat("8. Close the graphic device if you was plotting to file:\n\n");
 	cat("    dev.off();\n\n");
 }
 
