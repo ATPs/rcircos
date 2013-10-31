@@ -12,8 +12,7 @@
 # <><RCircos DEMO><RCircos DEMO><RCircos DEMO><RCircos DEMO><RCircos DEMO><RCircos DEMO><>
 
 
-RCircos.Tile.Plot.Demo<-function()
-{
+
 	#	Load RCircos library
 	#  	_________________________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -64,8 +63,12 @@ RCircos.Tile.Plot.Demo<-function()
 
 	cat("Add tile track ...\n");
 
+	tile.data <- RCircos.Tile.Data;
+	tile.colors <- rainbow(nrow(tile.data));
+	tile.data["PlotColor"] <- tile.colors;
+
 	track.num <- 9;
-	RCircos.Tile.Plot(RCircos.Tile.Data, track.num, "in");
+	RCircos.Tile.Plot(tile.data, track.num, "in");
 
 
 
@@ -77,8 +80,3 @@ RCircos.Tile.Plot.Demo<-function()
 	print("RCircos Tile Plot Demo Done!");
 
 	rm(list=ls(all=T));
-}
-	
-
-RCircos.Tile.Plot.Demo();
-

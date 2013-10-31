@@ -1,29 +1,23 @@
-\name{RCircos.Scatter.Plot}
-\alias{RCircos.Scatter.Plot}
+\name{RCircos.Clear.Track}
+\alias{RCircos.Clear.Track}
 \title{
-Circos-like Scatter Plot
+Erase One or More Data Tracks
 }
 \description{
-Draw one track of scatter plot. RCircos core components and graphics device must be initialized before drawing.
+Erase one data track or all tracks from current track to the center of plot plot area.
 }
 \usage{
-RCircos.Scatter.Plot(scatter.data, data.col, track.num, side, by.fold = 0)
+RCircos.Clear.Track(track.num, side, to.center = FALSE)
 }
 \arguments{
-  \item{scatter.data}{
-A data frame with the first three columns as chromosome name, start position and end position of each data point followed by data values for one or more samples.
-}
-  \item{data.col}{
-Integer, representing the ordinal number of the column in input dataset that contains the data to be plotted.
-}
   \item{track.num}{
-Integer, representing the ordinal number of the plot track where the data will be plotted.
+Integer, representing the ordinal number of the plot track to be erased.
 }
   \item{side}{
 Character vector, either "in" or "out", representing the position related to chromosome ideogram.
 }
-  \item{by.fold}{
-Zero or a positive float number, if it is greater than zero, any data point with a value greater or equal to the by.fold will be plot as red color and data points with values less or equal to negative by.fold will be plot as blue colr. Otherwise, black color is used.
+  \item{to.center}{
+Logic, FALSE for erasing current track only and TRUE for erasing all tracks from current track to the center of plot plot area. 
 }
 }
 \author{
@@ -42,13 +36,14 @@ library(RCircos);
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 data(UCSC.HG19.Human.CytoBandIdeogram);
-cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
+data(RCircos.Link.Data);
 
 
 # Set RCircso core components
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
+cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 tracks.inside <- 5;
 tracks.outside <- 0;
@@ -66,11 +61,23 @@ tracks.outside <- 0;
 
 data(RCircos.Scatter.Data);
 data.col <- 5; 
-track.num <- 4;
+track.num <- 1;
 side <- "in";
 by.fold <- 1;
 \dontrun{RCircos.Scatter.Plot(RCircos.Scatter.Data,  
               data.col, track.num, side, by.fold);}
+
+track.num <- 3;
+\dontrun{RCircos.Link.Plot(RCircos.Link.Data,  
+                    track.num, TRUE); }
+
+track.num <- 1;
+side <- "in";
+to.center <- FALSE;
+\dontrun{RCircos.Clear.Track(track.num, side, to.center); }
+to.center <- TRUE;
+\dontrun{RCircos.Clear.Track(track.num, side, to.center); }
+
 }
 \keyword{ methods }
 

@@ -47,8 +47,8 @@ species <- c("M", "R");
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-new.data <- RCircos.Multiple.Species.Dataset(data.list,  
-                             species);
+\dontrun{new.data <- RCircos.Multiple.Species.Dataset(  
+                          data.list, species);}
 }
 \keyword{ methods }
 

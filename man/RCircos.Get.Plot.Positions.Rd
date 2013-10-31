@@ -38,15 +38,15 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 num.inside <- 5;
 num.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                     num.inside, num.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+       chr.exclude, tracks.inside, tracks.outside);}
 
 
 # Get RCircos base plot positions
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-positions <- RCircos.Get.Plot.Positions();
-head(positions)
+\dontrun{positions <- RCircos.Get.Plot.Positions();}
+\dontrun{head(positions);}
 }
 \keyword{ methods }

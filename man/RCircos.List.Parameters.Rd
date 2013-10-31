@@ -35,15 +35,15 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 num.inside <- 5;
 num.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                     num.inside, num.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+       chr.exclude, tracks.inside, tracks.outside);}
 
 
 # List RCircos plot parameters
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-RCircos.List.Parameters();
+\dontrun{RCircos.List.Parameters();}
 }
 \keyword{ methods }
 

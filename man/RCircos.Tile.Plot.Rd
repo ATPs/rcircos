@@ -11,7 +11,7 @@ RCircos.Tile.Plot(tile.data, track.num, side)
 }
 \arguments{
   \item{tile.data}{
-A data frame with three columns as chromosome names, start position and end position of each data point. Columns for data values are optional.
+A data frame with three columns for chromosome name, start and end positions of each data point. Columns for data values are optional.
 }
   \item{track.num}{
 Integer, representing the ordinal number of the plot track where the data will be plotted.
@@ -47,8 +47,9 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 tracks.inside <- 5;
 tracks.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                  tracks.inside, tracks.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+            chr.exclude, num.inside, num.outside); }
+
 
 
 # Initialize graphic device and plot chromosome  
@@ -56,8 +57,8 @@ RCircos.Set.Core.Components(cyto.info, chr.exclude,
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-RCircos.Set.Plot.Area();
-RCircos.Chromosome.Ideogram.Plot();
+\dontrun{RCircos.Set.Plot.Area(); }
+\dontrun{RCircos.Chromosome.Ideogram.Plot(); }
 
 
 # Load tile data and plot one track of tiles  
@@ -67,7 +68,8 @@ RCircos.Chromosome.Ideogram.Plot();
 data(RCircos.Tile.Data);
 track.num <- 4;
 side <- "in";
-RCircos.Tile.Plot(RCircos.Tile.Data, track.num, side);
+\dontrun{RCircos.Tile.Plot(RCircos.Tile.Data,  
+                         track.num, side); }
 }
 \keyword{ methods }
 

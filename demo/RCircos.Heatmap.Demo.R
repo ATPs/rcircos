@@ -12,8 +12,7 @@
 # <><RCircos DEMO><RCircos DEMO><RCircos DEMO><RCircos DEMO><RCircos DEMO><RCircos DEMO><>
 
 
-RCircos.Heatmap.Demo<-function()
-{
+
 	#	Load RCircos library
 	#  	_________________________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -79,8 +78,4 @@ RCircos.Heatmap.Demo<-function()
 
 	rm(list=ls(all=T));
 
-}
-	
-
-RCircos.Heatmap.Demo();
 

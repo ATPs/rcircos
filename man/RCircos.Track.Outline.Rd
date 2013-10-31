@@ -47,8 +47,9 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 tracks.inside <- 5;
 tracks.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                  tracks.inside, tracks.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+            chr.exclude, num.inside, num.outside); }
+
 
 
 # Initialize graphic device and plot chromosome  
@@ -56,8 +57,8 @@ RCircos.Set.Core.Components(cyto.info, chr.exclude,
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-RCircos.Set.Plot.Area();
-RCircos.Chromosome.Ideogram.Plot();
+\dontrun{RCircos.Set.Plot.Area(); }
+\dontrun{RCircos.Chromosome.Ideogram.Plot(); }
 
 
 # Plot one track outline
@@ -70,6 +71,7 @@ locations <- RCircos.Track.Positions(side, track.num);
 out.pos <- locations[1];
 in.pos <- locations[2];
 subtracks <- 5;
-RCircos.Track.Outline(out.pos, in.pos, subtracks);
+\dontrun{RCircos.Track.Outline(out.pos, in.pos,  
+                      subtracks); }
 }
 \keyword{ methods }

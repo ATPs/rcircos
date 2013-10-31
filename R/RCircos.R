@@ -264,6 +264,7 @@ RCircos.List.Parameters<-function()
 	cat(paste("point.type:\t",     RCircos.Par$point.type, "\n"));
 	cat(paste("point.size:\t",     RCircos.Par$point.size, "\n"));
 	cat(paste("track.background:\t", RCircos.Par$track.background, "\n"));
+	cat(paste("grid.line.color:\t", RCircos.Par$grid.line.color, "\n"));
 	cat(paste("Bezier.point:\t",   RCircos.Par$Bezier.point, "\n"));
 	cat(paste("max.layers:\t",     RCircos.Par$max.layers, "\n"))
 	cat(paste("sub.tracks:\t",     RCircos.Par$sub.tracks, "\n\n"))
@@ -1987,7 +1988,8 @@ RCircos.Initialize.Parameters<-function(tracks.inside, tracks.outside)
 			highlight.width=round(radius.default, digits=0),
 			point.type=".", 
 			point.size=1,
-			track.background="gray",
+			track.background="wheat",
+			grid.line.color="gray",
 			Bezier.point=1000,
 			max.layers=5,
 			sub.tracks=5);
@@ -2445,14 +2447,14 @@ RCircos.Track.Outline<-function(out.pos, in.pos, num.layers)
 				RCircos.Pos[end:start,1]*in.pos);
 		polygon.y<- c(RCircos.Pos[start:end,2]*out.pos, 
 				RCircos.Pos[end:start,2]*in.pos);
-		polygon(polygon.x, polygon.y, col="wheat");
+		polygon(polygon.x, polygon.y, col=RCircos.Par$track.background);
 
 		for(a.line in 1:(RCircos.Par$sub.tracks-1))
 		{
 			height <- out.pos-a.line*subtrack.height;
 			lines(RCircos.Pos[start:end,1]*height, 
 				RCircos.Pos[start:end,2]*height,
-				col=RCircos.Par$track.background);
+				col=RCircos.Par$grid.line.color);
 		}
 	}
 }

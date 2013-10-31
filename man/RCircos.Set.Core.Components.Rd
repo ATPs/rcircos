@@ -50,8 +50,8 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 tracks.inside <- 5;
 tracks.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                  tracks.inside, tracks.outside);  
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+      chr.exclude, tracks.inside, tracks.outside); } 
 
 }
 \keyword{ methods }

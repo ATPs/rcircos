@@ -15,8 +15,7 @@
 
 
 
-RCircos.Gene.Connector.Demo<-function()
-{
+
 	#	Load RCircos package and defined parameters
 	#  	_________________________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -70,10 +69,20 @@ RCircos.Gene.Connector.Demo<-function()
 	track.num <- 1;
 	RCircos.Gene.Connector.Plot(RCircos.Gene.Label.Data, 
 			track.num, direction);
+
+	gene.data <- RCircos.Gene.Label.Data;
+	gene.colors <- rep("black", nrow(gene.data))
+	gene.colors[which(gene.data$Gene=="TP53")] <- "red";
+	gene.colors[which(gene.data$Gene=="BRCA2")] <- "red";
+	gene.colors[which(gene.data$Gene=="RB1")] <- "red";
+	gene.colors[which(gene.data$Gene=="JAK1")] <- "blue";
+	gene.colors[which(gene.data$Gene=="JAK2")] <- "blue";
+
+	gene.data["PlotColor"] <- gene.colors;
+
 	name.col <- 4;
 	track.num <- 2;
-	RCircos.Gene.Name.Plot(RCircos.Gene.Label.Data, name.col, 
-			track.num, direction);
+	RCircos.Gene.Name.Plot(gene.data, name.col, track.num, direction);
 
 
 	#	Close the graphic device and clear memory
@@ -84,6 +93,3 @@ RCircos.Gene.Connector.Demo<-function()
 	cat("R Circos Demo Done ...\n\n");
 	rm(list=ls(all=T));
 
-}
-
-RCircos.Gene.Connector.Demo();

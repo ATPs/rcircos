@@ -4,7 +4,7 @@
 Draw Connectors between Chromosome Ideogram and Gene Names
 }
 \description{
-Draw a set of connectors (three lines for each connector) between chromosome ideogram and gene names. RCircos core components and graphics device must be initialized before drawing.
+Draw a set of connectors (three lines for each connector) between chromosome ideogram or a data track and gene names. RCircos core components and graphics device must be initialized before drawing.
 }
 \usage{
 RCircos.Gene.Connector.Plot(genomic.data, track.num, side)
@@ -31,12 +31,12 @@ Hongen Zhang
 library(RCircos);
 
 
-# Load human chromosome ideogram
+# Load human chromosome ideogram and sample data
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
+data(RCircos.Gene.Label.Data);
 data(UCSC.HG19.Human.CytoBandIdeogram);
-cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 
 
 # Set RCircso core components
@@ -44,28 +44,23 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
-chr.exclude <- c("chrX", "chrY");
+chr.exclude <- NULL;
 tracks.inside <- 5;
 tracks.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                  tracks.inside, tracks.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+       chr.exclude, tracks.inside, tracks.outside);}
 
 
-# Initialize graphic device and plot chromosome  
-# ideogram
+# Initialize graphic device, plot chromosome ideogram
+# and connectors  
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-RCircos.Set.Plot.Area();
-RCircos.Chromosome.Ideogram.Plot();
-
-
-# Load gene label data and plot connectors  
-# __________________________________________________
-# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-data(RCircos.Gene.Label.Data);
-RCircos.Gene.Connector.Plot(RCircos.Gene.Label.Data, 1, "in");
+gene.data <- RCircos.Gene.Label.Data;
+\dontrun{RCircos.Set.Plot.Area(); }
+\dontrun{RCircos.Chromosome.Ideogram.Plot(); }
+\dontrun{RCircos.Gene.Connector.Plot(gene.data,  
+                               1, "in"); }
 }
 \keyword{ methods }
 

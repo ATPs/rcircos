@@ -4,7 +4,7 @@
 Get All RCircos Plot Parameters
 }
 \description{
-Get all parameters used during current RCircos session in order to check and reset plot parameters. RCircos core components must be initialized first.
+Get all parameters used in current RCircos session in order to check and reset plot parameters. RCircos core components must be initialized first.
 }
 \usage{
 RCircos.Get.Plot.Parameters()
@@ -38,15 +38,15 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 num.inside <- 5;
 num.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                     num.inside, num.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+       chr.exclude, tracks.inside, tracks.outside);}
 
 
 # Get RCircos plot parameters
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-params <- RCircos.Get.Plot.Parameters();
-params
+\dontrun{params <- RCircos.Get.Plot.Parameters();}
+\dontrun{params}
 }
 \keyword{ methods }

@@ -31,11 +31,11 @@ data(UCSC.HG19.Human.CytoBandIdeogram);
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
-chr.exclude <- c("chrX", "chrY");
+chr.exclude <- NULL;
 num.inside <- 5;
 num.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                     num.inside, num.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+	chr.exclude, num.inside, num.outside); }
 
 
 # Initialize graphic device and plot chromosome  
@@ -43,8 +43,8 @@ RCircos.Set.Core.Components(cyto.info, chr.exclude,
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-RCircos.Set.Plot.Area();
-RCircos.Chromosome.Ideogram.Plot();
+\dontrun{RCircos.Set.Plot.Area();}
+\dontrun{RCircos.Chromosome.Ideogram.Plot();}
 }
 \keyword{methods}
 

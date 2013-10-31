@@ -17,8 +17,7 @@
 
 
 
-RCircos.Demo.Mouse.And.Rat<-function()
-{
+
 	#	Load RCircos package and defined parameters. 
 	#  	__________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -158,16 +157,9 @@ RCircos.Demo.Mouse.And.Rat<-function()
 	#  	__________________________________________________
 	#	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-	cat("Add color key\n");
-	RedRamp <- rgb( seq(1, 1, length=256),  		
-			seq(0, 1, length=256),  		
-			seq(0, 1, length=256)) ; 		
+	cat("Add color key\n");  		
 
-	BlueRamp <- rgb(seq(0, 1, length=256),  		
-			seq(0, 1, length=256),  		
-			seq(1, 1, length=256));  		
-
-	ColorRamp   <- cbind(BlueRamp, rev(RedRamp));
+	ColorRamp <- RCircos.Get.Heatmap.ColorScales("BlueWhiteRed");
 	ColorLevels <- seq(min(expr.data$Expr.Mean), 
 				max(expr.data$Expr.Mean), 
 				length=length(ColorRamp));
@@ -187,7 +179,3 @@ RCircos.Demo.Mouse.And.Rat<-function()
 	cat("R Circos Demo with mouse and Rat data done ...\n\n");
 
 	rm(list=ls(all=T));
-}
-
-
-RCircos.Demo.Mouse.And.Rat();

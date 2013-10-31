@@ -34,11 +34,12 @@ Hongen Zhang
 library(RCircos);
 
 
-# Load human chromosome ideogram
+# Load human chromosome ideogram and sample data
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 data(UCSC.HG19.Human.CytoBandIdeogram);
+data(RCircos.Gene.Label.Data);
 
 
 # Set RCircso core components
@@ -49,28 +50,22 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 num.inside <- 5;
 num.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                     num.inside, num.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+        chr.exclude, num.inside, num.outside); }
 
-
-# Initialize graphic device and plot chromosome  
-# ideogram
+# Initialize graphic device, plot chromosome ideogram
+# and gene names  
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-RCircos.Set.Plot.Area();
-RCircos.Chromosome.Ideogram.Plot();
+\dontrun{RCircos.Set.Plot.Area(); }
+\dontrun{RCircos.Chromosome.Ideogram.Plot(); }
 
-
-# Load gene label data and plot gene names
-# __________________________________________________
-# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-data(RCircos.Gene.Label.Data);
 name.col <- 4; 
 track.num <- 2;
 side <- "in";
-RCircos.Gene.Name.Plot(RCircos.Gene.Label.Data,  
-                         name.col, track.num, side);
+gene.data <- RCircos.Gene.Label.Data;
+\dontrun{RCircos.Gene.Name.Plot(gene.data, name.col,  
+                                track.num, side);}
 }
 \keyword{ methods }

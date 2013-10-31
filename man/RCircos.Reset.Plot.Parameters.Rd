@@ -40,8 +40,8 @@ cyto.info <- UCSC.HG19.Human.CytoBandIdeogram;
 chr.exclude <- c("chrX", "chrY");
 tracks.inside <- 5;
 tracks.outside <- 0;
-RCircos.Set.Core.Components(cyto.info, chr.exclude,  
-                  tracks.inside, tracks.outside);
+\dontrun{RCircos.Set.Core.Components(cyto.info,  
+       chr.exclude, tracks.inside, tracks.outside);}
 
 
 # List RCircos plot parameters then get RCircos plot  
@@ -51,10 +51,10 @@ RCircos.Set.Core.Components(cyto.info, chr.exclude,
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-RCircos.List.Parameters();
-params <- RCircos.Get.Plot.Parameters();
-params$base.per.unit <- 30000;
-RCircos.Reset.Plot.Parameters(params);
-RCircos.List.Parameters();
+\dontrun{RCircos.List.Parameters(); }
+\dontrun{params <- RCircos.Get.Plot.Parameters(); }
+\dontrun{params$base.per.unit <- 30000; }
+\dontrun{RCircos.Reset.Plot.Parameters(params); }
+\dontrun{RCircos.List.Parameters(); }
 }
 \keyword{ methods }

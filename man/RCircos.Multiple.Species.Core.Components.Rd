@@ -56,10 +56,12 @@ species <- c("M", "R");
 # __________________________________________________
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
+chr.exclude <- c("chrX", "chrY");
 tracks.inside <- 5;
 tracks.outside <- 0;
-RCircos.Multiple.Species.Core.Components(cyto.list,  
-       species, NULL, tracks.inside, tracks.outside);
+\dontrun{RCircos.Multiple.Species.Core.Components(  
+       cyto.list, species, chr.exclude,  
+       tracks.inside, tracks.outside); }
 }
 \keyword{ methods }
 
